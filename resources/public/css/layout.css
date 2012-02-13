@@ -1,10 +1,8 @@
 * {
   font-family: Veranda, sans-serif;
-  font: 150%;
 }
 
 #wrapper {
-
   position:relative;
   width:100%;
 }
@@ -23,7 +21,7 @@ h1 {
   margin-bottom: 5%;
   height: 30pt;
   padding: 20px;
-  font: 120% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  font: 200% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
   display: block;
 
 }
