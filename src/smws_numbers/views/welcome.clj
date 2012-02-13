@@ -26,6 +26,13 @@
       [:p (str bottle-number ": " distillery-name)]
       (link-to "/distilleries" "Search Again")]))
 
+(defpage "/distilleries/notfound" {:as bottle-number}
+  (common/layout
+    [:h2 (str "There is no SMWS bottle number " bottle-number)]
+      (link-to "/distilleries" "Search Again")))
+
 (defpage [:post "/distilleries/search"] {bottle-number :search-string}
   (let [distillery (find distillery-codes/codes bottle-number)]
-    (render "/distilleries/searchresults" distillery)))
+    (if (nil? distillery)
+      (render "/distilleries/notfound" bottle-number)
+      (render "/distilleries/searchresults" distillery))))
