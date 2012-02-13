@@ -1,0 +1,52 @@
+* {
+  font-family: Veranda, sans-serif;
+  font: 150%;
+}
+
+#wrapper {
+
+  position:relative;
+  width:100%;
+}
+
+body {
+  background: #93ccff;
+  margin:0;
+  padding:0;
+}
+
+h1 {
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  margin-bottom: 5%;
+  height: 30pt;
+  padding: 20px;
+  font: 120% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  display: block;
+
+}
+
+label, input {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#search {
+  width: 80%;
+  height: 30pt;
+  padding: 20px;
+  font: 30pt "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  border-radius: 15px;
+}
+
+#submit-button {
+  width: 20%;
+  margin-top: 5%;
+  height: 30pt;
+  font: 15pt "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  border-radius: 15px;
+  background: #ffd661;
+}

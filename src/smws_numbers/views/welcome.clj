@@ -11,11 +11,16 @@
 
 (defpage "/distilleries" []
   (common/layout
-    [:h1 "Search for Distilleries"]
+    [:h1 "SMWS Bottling Search"]
     (form-to [:post "/distilleries/search"]
-      (label "search-string" "Type the name of a Distillery or a SMWS bottling number below")
-      (text-field "search-string")
-      (submit-button "Submit"))))
+      (text-field "search")
+      [:input {:id "submit-button" :type "submit" :value "search"}])))
+
+(defpage [:post "/distilleries/search"] {bottle-number :search}
+  (let [distillery (find distillery-codes/codes bottle-number)]
+    (if (nil? distillery)
+      (render "/distilleries/notfound" bottle-number)
+      (render "/distilleries/searchresults" distillery))))
 
 (defpage "/distilleries/searchresults" [bottle-number distillery-name]
   (common/layout
@@ -27,10 +32,3 @@
   (common/layout
     [:h2 (str "There is no SMWS bottle number " bottle-number)]
       (link-to "/distilleries" "Search Again")))
-
-(defpage [:post "/distilleries/search"] {bottle-number :search-string}
-  (let [distillery (find distillery-codes/codes bottle-number)]
-    (if (nil? distillery)
-      (render "/distilleries/notfound" bottle-number)
-      (render "/distilleries/searchresults" distillery))))
-
