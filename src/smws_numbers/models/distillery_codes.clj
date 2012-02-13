@@ -119,5 +119,12 @@
     "115" "Knockdhu"
     "116" "Nikka Distilleries (Japan)"
     "117" "Cooley (Ireland)"
-    "118" "Connemara (Ireland)"
-    })
+    "118" "Connemara (Ireland)" })
+
+(defn search-by-number [search-string]
+    (filter #(= search-string (first %1)) codes))
+
+(defn search-by-name [search-string]
+    (filter #(re-find (re-pattern (.toLowerCase search-string)) (.toLowerCase (second %1))) codes))
+
+

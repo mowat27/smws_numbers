@@ -1,30 +1,34 @@
 (ns smws_numbers.views.welcome
   (:require [smws_numbers.views.common :as common]
             [noir.response :as resp])
-  (:use [noir.core :only [defpage]]
+  (:use [noir.core]
         [hiccup.core :only [html]]
         [hiccup.page-helpers]
         [hiccup.form-helpers]
         [smws_numbers.models.distillery_codes :as distillery-codes]))
 
 (defn lookup [search-string]
-  (find distillery-codes/codes search-string))
+  (concat
+    (distillery-codes/search-by-number search-string)
+    (distillery-codes/search-by-name search-string)))
 
-(defpartial search-result [{:keys [bottle-number distillery-name]}]
+(defpartial render-result [[bottle-number distillery-name]]
   (if-not (nil? bottle-number)
     [:div {:class "search-result"}
       [:p (str "#" bottle-number " " distillery-name)]]))
 
-(defpage "/" {:as params}
-  (let [bottle-number (first params) distillery-name (second params)]
+(defpage "/" {:keys [search-string search-results]}
   (common/layout
+    (println (str "Search for (/): " search-string))
+    (println (str "Found (/): " search-results))
     [:h1 "SMWS Bottling Search"]
     (form-to [:post "/search"]
-      [:input {:id "search" :name "search" :type "text" :value bottle-number}]
+      [:input {:id "search" :name "search" :type "text"}]
       [:input {:id "submit-button" :type "submit" :value "search"}])
-    (search-result {:bottle-number bottle-number :distillery-name distillery-name}))))
+    (map render-result search-results)))
 
-(defpage [:post "/search"] {bottle-number :search}
-  (let [distillery (lookup bottle-number)]
-    (println (str "Search for: " bottle-number))
-    (render "/" distillery)))
+(defpage [:post "/search"] {search-string :search}
+  (let [search-results (lookup search-string )]
+    (println (str "Search for: " search-string))
+    (println (str "Found: " search-results))
+    (render "/" {:search-string search-string :search-results search-results})))
