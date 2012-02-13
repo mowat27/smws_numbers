@@ -11,27 +11,20 @@
   (find distillery-codes/codes search-string))
 
 (defpartial search-result [{:keys [bottle-number distillery-name]}]
-  [:p (str bottle-number ": " distillery-name)])
+  (if-not (nil? bottle-number)
+    [:div {:class "search-result"}
+      [:p (str "#" bottle-number " " distillery-name)]]))
 
-(defpage "/" [] (resp/redirect "/distilleries"))
-
-(defpage "/distilleries" {:as params}
+(defpage "/" {:as params}
   (let [bottle-number (first params) distillery-name (second params)]
   (common/layout
     [:h1 "SMWS Bottling Search"]
-    (form-to [:post "/distilleries/search"]
+    (form-to [:post "/search"]
       [:input {:id "search" :name "search" :type "text" :value bottle-number}]
       [:input {:id "submit-button" :type "submit" :value "search"}])
     (search-result {:bottle-number bottle-number :distillery-name distillery-name}))))
 
-(defpage [:post "/distilleries/search"] {bottle-number :search}
+(defpage [:post "/search"] {bottle-number :search}
   (let [distillery (lookup bottle-number)]
     (println (str "Search for: " bottle-number))
-    (if (nil? distillery)
-      (render "/distilleries/notfound" bottle-number)
-      (render "/distilleries" distillery))))
-
-(defpage "/distilleries/notfound" {:as bottle-number}
-  (common/layout
-    [:h2 (str "There is no SMWS bottle number " bottle-number)]
-      (link-to "/distilleries" "Search Again")))
+    (render "/" distillery)))

@@ -42,9 +42,38 @@ label, input {
 
 #submit-button {
   width: 20%;
-  margin-top: 5%;
+  margin-top: 5px;
   height: 30pt;
   font: 15pt "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
   border-radius: 15px;
   background: #ffd661;
 }
+
+.search-result {
+  width: 60%;
+  height: 20pt;
+  padding: 20px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border-radius: 15px;
+  border: 1px solid black;
+  text-align: center;
+
+  background-image: linear-gradient(bottom, #FFD561 47%, #FFFFFF 76%, #FFFFFF 87%);
+  background-image: -o-linear-gradient(bottom, #FFD561 47%, #FFFFFF 76%, #FFFFFF 87%);
+  background-image: -moz-linear-gradient(bottom, #FFD561 47%, #FFFFFF 76%, #FFFFFF 87%);
+  background-image: -webkit-linear-gradient(bottom, #FFD561 47%, #FFFFFF 76%, #FFFFFF 87%);
+  background-image: -ms-linear-gradient(bottom, #FFD561 47%, #FFFFFF 76%, #FFFFFF 87%);
+
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.47, #FFD561),
+    color-stop(0.76, #FFFFFF),
+    color-stop(0.87, #FFFFFF)
+  );
+}
+
