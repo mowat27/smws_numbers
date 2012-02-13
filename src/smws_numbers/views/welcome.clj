@@ -1,6 +1,5 @@
 (ns smws_numbers.views.welcome
   (:require [smws_numbers.views.common :as common]
-            [noir.content.getting-started]
             [noir.response :as resp])
   (:use [noir.core :only [defpage]]
         [hiccup.core :only [html]]
@@ -8,9 +7,7 @@
         [hiccup.form-helpers]
         [smws_numbers.models.distillery_codes :as distillery-codes]))
 
-(defpage "/welcome" []
-  (common/layout
-    [:p "Welcome to smws_numbers"]))
+(defpage "/" [] (resp/redirect "/distilleries"))
 
 (defpage "/distilleries" []
   (common/layout
@@ -36,3 +33,4 @@
     (if (nil? distillery)
       (render "/distilleries/notfound" bottle-number)
       (render "/distilleries/searchresults" distillery))))
+
