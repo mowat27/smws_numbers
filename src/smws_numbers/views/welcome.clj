@@ -15,16 +15,18 @@
 (defpartial render-result [[bottle-number distillery-name]]
   (if-not (nil? bottle-number)
     [:div {:class "search-result"}
-      [:p (str "#" bottle-number " " distillery-name)]]))
+      (str "#" bottle-number " " distillery-name)]))
 
 (defpage "/" {:keys [search-string search-results]}
   (common/layout
     (println (str "Search for (/): " search-string))
     (println (str "Found (/): " search-results))
-    [:h1 "SMWS Bottling Search"]
-    (form-to [:post "/search"]
-      [:input {:id "search" :name "search" :type "text" :value search-string}]
-      [:input {:id "submit-button" :type "submit" :value "search"}])
+    [:div {:id "title"}
+      [:h1 "Search by SMWS number or distillery name"]]
+    [:div {:id "search-form"}
+      (form-to [:post "/search"]
+        [:input {:id "search" :name "search" :type "text" :value search-string}]
+        [:input {:id "submit-button" :type "submit" :value "Search"}])]
     [:div {:id "results"}
       (map render-result search-results)]))
 
