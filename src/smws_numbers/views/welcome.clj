@@ -23,9 +23,10 @@
     (println (str "Found (/): " search-results))
     [:h1 "SMWS Bottling Search"]
     (form-to [:post "/search"]
-      [:input {:id "search" :name "search" :type "text"}]
+      [:input {:id "search" :name "search" :type "text" :value search-string}]
       [:input {:id "submit-button" :type "submit" :value "search"}])
-    (map render-result search-results)))
+    [:div {:id "results"}
+      (map render-result search-results)]))
 
 (defpage [:post "/search"] {search-string :search}
   (let [search-results (lookup search-string )]
