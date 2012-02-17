@@ -22,12 +22,9 @@
     (println (str "Search for (/): " search-string))
     (println (str "Found (/): " search-results))
     [:div {:id "title"}
-      [:h1 "SMWS Distillery Finder"]]
+      [:h1 "Search by SMWS number or distillery name"]]
     [:div {:id "search-form"}
       (form-to [:post "/search"]
-        [:p "Enter a number or name"]
-        [:p "You can enter part of a name too"]
-        [:br]
         [:input {:id "search" :name "search" :type "text" :value search-string}]
         [:input {:id "submit-button" :type "submit" :value "Search"}])]
     [:div {:id "results"}
